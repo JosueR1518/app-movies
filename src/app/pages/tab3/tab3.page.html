@@ -1,0 +1,38 @@
+<ion-header no-border>
+  <ion-toolbar color="dark">
+    <ion-title>
+      Mis favoritos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" >
+ <div *ngIf="generos.length > 0">
+  <ion-segment   mod="md" (ionChange)="cambiarCategoria($event)" scrollable>
+    <ion-segment-button   *ngFor="let g of favoritoGenero" [value]="g.genero" [checked]="g.genero === segmentoActivo" >
+        <ion-label color="light" text-capitalize>{{g.genero}}</ion-label>
+      </ion-segment-button>
+
+</ion-segment>
+
+
+<div *ngFor="let grupo of favoritoGenero" >
+
+<ion-grid fixed  *ngIf="grupo.genero ===segmentoActivo">
+    <ion-row>
+      <ion-col >
+
+          <ion-card *ngFor="let pelicula of grupo.pelis">
+              <img [src]="pelicula.backdrop_path| image" (click)="verDetalle(pelicula.id)">
+              <ion-card-header>
+                <ion-card-subtitle>{{pelicula.release_date}}</ion-card-subtitle>
+                <ion-card-title color="light">{{pelicula.title}}</ion-card-title>
+              </ion-card-header>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+ </div>
+
+</ion-content>

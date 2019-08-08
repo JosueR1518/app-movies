@@ -1,0 +1,90 @@
+<ion-content *ngIf="pelicula" color="dark">
+
+  <ion-label class="titulo">{{pelicula.title}}</ion-label>
+  <img  src="{{pelicula.backdrop_path|image}}" alt="">
+
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="4" class="poster-detalle-sobre ">
+      <ion-card>
+      <img class="poster" src="{{pelicula.poster_path|image}}" alt="">
+    </ion-card> 
+  </ion-col>
+    <ion-col> 
+
+
+     <ion-list  class="dark-list">
+        <ion-item color="dark"><ion-icon slot="start" color="primary" name="thumbs-up"></ion-icon>
+          <ion-label>Rating</ion-label>
+          <ion-note color="primary" slot="end">{{pelicula.vote_average}}</ion-note>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-icon slot="start" color="primary" name="contacts"></ion-icon>
+          <ion-label>Votos</ion-label>
+          <ion-note slot="end"color="primary">{{pelicula.vote_count}}</ion-note>
+        </ion-item>
+     </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="12">
+        <ion-label>{{pelicula.overview|slice :0:oculto}}<span *ngIf="oculto!=5000">...</span></ion-label> 
+          <ion-label color="primary" (click)="oculto=5000" *ngIf="oculto !=5000">Leer más</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-chip *ngFor="let c of pelicula.genres" color="primary" mode="ios" outline="true">
+        <ion-label>{{c.name}}</ion-label>
+      </ion-chip>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid fixed>
+
+  <ion-row>
+    <ion-col size="12">
+
+        <ion-label>Actores</ion-label>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-slides mode="ios"  scrollbar="ios" [options]="optionsSlide">
+    <ion-slide *ngFor="let a of actores">
+     <ion-card class="card-actor">
+        <img  *ngIf="a.profile_path" class="poster" src="{{a.profile_path|image}}" alt="">
+      <img  *ngIf="!a.profile_path" class="poster" src="./assets/img/no-avatar.jpg" alt="">
+      <ion-label class="actor-name">{{a.name}}</ion-label>
+     </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+
+
+</ion-content>
+
+
+<ion-footer no-border>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start" >
+      <ion-button (click)="regresar()" >
+        <ion-icon slot="start" name="arrow-round-back"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons>
+
+
+    <ion-buttons slot="end" >
+        <ion-button (click)="favorito()">
+          <ion-icon *ngIf="esFavorito" slot="start" name="star"></ion-icon>
+          <ion-icon *ngIf="!esFavorito" slot="start" name="star-outline"></ion-icon>
+          Favorito
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

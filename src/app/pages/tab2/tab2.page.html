@@ -1,0 +1,38 @@
+<ion-header no-border >
+  <ion-toolbar color="dark">
+    <ion-title>
+      Buscar películas
+    </ion-title>
+
+
+    <ion-searchbar placeholder="Buscar" color="dark" (ionChange)="buscarPelicula($event)" [debounce]="700"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+
+
+  <ion-grid fixed    *ngIf="buscando">
+    <ion-row>
+      <ion-col text-center>
+        <ion-spinner  name="crescent" color="light"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col >
+
+          <ion-card *ngFor="let pelicula of peliculas">
+              <img [src]="pelicula.backdrop_path| image" (click)="verDetalle(pelicula.id)">
+              <ion-card-header>
+                <ion-card-subtitle>{{pelicula.release_date}}</ion-card-subtitle>
+                <ion-card-title color="light">{{pelicula.title}}</ion-card-title>
+              </ion-card-header>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
