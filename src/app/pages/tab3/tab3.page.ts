@@ -79,7 +79,13 @@ export class Tab3Page {
           generos.forEach(genero => {
 
                    let pelis = peliculas.filter(pelicula=>{
-                    return  pelicula.genres.find(genre=>genre.id===genero.id)
+
+
+
+                    if(pelicula.genres){
+                      return  pelicula.genres.find(genre=>genre.id===genero.id);
+                    }
+                    return  null;
                   });
 
 
